@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
          out.write(data);
          out.close();
      }*/
-    public void getPermission(ArrayList<String> permisosSolicitados){
+        public void getPermission(ArrayList<String> permisosSolicitados){
 
         ArrayList<String> listPermisosNOAprob = getPermisosNoAprobados(permisosSolicitados);
         if (listPermisosNOAprob.size()>0)
@@ -165,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("storage/sdcard/*");
+        intent.setType("storage/*");
         startActivityForResult(intent,STOGE);
 
         boolean stoge = true;
