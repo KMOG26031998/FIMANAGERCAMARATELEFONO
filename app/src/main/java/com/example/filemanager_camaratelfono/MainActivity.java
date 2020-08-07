@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
@@ -23,8 +24,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import android.os.Bundle;
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
  Button btnfoto;
  static final int REQUEST_IMAGE_CAPTURE=1;
     static final int STOGE = 1;
-    private static final int FILE_SELECT_CODE = 0;
+    private static final int READ_REQUEST_CODE = 42;
 
 
     @Override
@@ -75,8 +79,48 @@ public class MainActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imagenView.setImageBitmap(imageBitmap);
         }
+
+             /*  if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+                Uri uri = null;
+                   Object resultData;
+                   if (resultData != null) {
+                    try{
+                             String output_path = Environment.getExternalStorageDirectory()
+                                + "filedownload.pdf";
+                        File oFile = new File(output_path);
+                        if (!oFile.exists()) {
+                          oFile.getParentFile().mkdirs();
+                            oFile.createNewFile();
+                        }
+                        InputStream iStream = getActivity()
+                                .getContentResolver()
+                                .openInputStream(uri);
+                        byte[] inputData = getBytes(iStream);
+                        writeFile(inputData,output_path);
+                    } catch (Exception e){
+
+                        e.printStackTrace();
+                    }
+                }
+
+            }*/
     }
 
+    /* public byte[] getBytes(InputStream inputStream) throws IOException {
+         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+         int bufferSize = 1024;
+         byte[] buffer = new byte[bufferSize];
+         int len = 0;
+         while ((len = inputStream.read(buffer)) != -1) {
+             byteBuffer.write(buffer, 0, len);
+         }
+         return byteBuffer.toByteArray();
+     }
+     public void writeFile(byte[] data, String fileName) throws IOException{
+         FileOutputStream out = new FileOutputStream(fileName);
+         out.write(data);
+         out.close();
+     }*/
     public void getPermission(ArrayList<String> permisosSolicitados){
 
         ArrayList<String> listPermisosNOAprob = getPermisosNoAprobados(permisosSolicitados);
