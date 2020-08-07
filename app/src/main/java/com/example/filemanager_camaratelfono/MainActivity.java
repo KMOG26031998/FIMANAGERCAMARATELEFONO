@@ -33,12 +33,16 @@ public class MainActivity extends AppCompatActivity {
  ImageView imagenView;
  Button btnfoto;
  static final int REQUEST_IMAGE_CAPTURE=1;
-    String currentPhotoPath;
-    static final int REQUEST_TAKE_PHOTO = 1;
+    static final int STOGE = 1;
+    private static final int FILE_SELECT_CODE = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
        ArrayList<String> permisos = new ArrayList<String>();
         permisos.add(Manifest.permission.CAMERA);
         permisos.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -72,15 +76,6 @@ public class MainActivity extends AppCompatActivity {
             imagenView.setImageBitmap(imageBitmap);
         }
     }
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(currentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
-
-
 
     public void getPermission(ArrayList<String> permisosSolicitados){
 
@@ -123,9 +118,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void BajarDoc(View view){
-/////
 
-        String url = "https://www.uteq.edu.ec/revistacyt/archivositio/instrucciones_arbitros.pdf";
+       Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("storage/sdcard/*");
+        startActivityForResult(intent,STOGE);
+
+        boolean stoge = true;
+        /*Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
+                +  File.separator + "myFolder" + File.separator);
+        intent.setDataAndType(uri, "text/csv");
+        startActivity(Intent.createChooser(intent, "Open folder"));*/
+        //File file = Environment.getExternalStorageDirectory();
+
+        String url = "https://drive.google.com/uc?id=0B-BcALTBov27NWRYQ0lDOFF0ekU&export=download";
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setDescription("PDF");
         request.setTitle("Pdf");
