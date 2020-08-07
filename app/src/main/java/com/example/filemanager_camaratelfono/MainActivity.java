@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void BajarDoc(View view){
+/////
+
         String url = "https://www.uteq.edu.ec/revistacyt/archivositio/instrucciones_arbitros.pdf";
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         request.setDescription("PDF");
